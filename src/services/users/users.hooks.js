@@ -3,11 +3,22 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
+const addAssociations = require('./../../hooks/add-associations');
+
 
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
+    find: [ authenticate('jwt'), 
+            addAssociations({
+              models: [
+                  {
+                      model: 'companies',
+                      as: 'CompanyID'
+                  }
+              ]
+            }) 
+    ],
     get: [ authenticate('jwt') ],
     create: [ hashPassword('password') ],
     update: [ hashPassword('password'),  authenticate('jwt') ],
