@@ -1,7 +1,7 @@
 'user strict';
 var request = require('request');
 var c2bapi = function(req, res, next){
-    let url = " https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
+    let url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
     let auth = "Bearer "+req.access_token;
     request(
         {

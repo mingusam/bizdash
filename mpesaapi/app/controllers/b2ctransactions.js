@@ -1,7 +1,7 @@
 'user strict';
 var request = require('request');
 var b2capi = function(req,res,next){
-    let url = "POST https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest";
+    let url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
     let auth = "Bearer "+req.access_token;
     request(
         {
@@ -16,7 +16,7 @@ var b2capi = function(req,res,next){
                 "CommandID": "SalaryPayment",
                 "Amount": "100",
                 "PartyA": "600383",
-                "PartyB": "500181",
+                "PartyB": "254722632126",
                 "Remarks": "We have fully settled",
                 "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
                 "ResultURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
@@ -28,7 +28,7 @@ var b2capi = function(req,res,next){
                 console.log(error);
             }
             else{
-              req.b2bresult = res.status(200).json(body); 
+              req.b2cresult = res.status(200).json(body); 
             }
         }
     )

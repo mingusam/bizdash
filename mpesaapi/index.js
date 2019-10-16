@@ -7,6 +7,8 @@ var request = require('request');
 var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
 var b2capi = require('./app/controllers/b2ctransactions.js');
+var b2bapi = require('./app/controllers/b2btransactions.js');
+
 
 app.get('/', function(req,res){
     res.send("Hello Mpesa");
@@ -23,6 +25,10 @@ app.get('/simulatec2b',generatetoken, c2bapi, function(req,res){
 app.get('/simulateb2c',generatetoken,b2capi,function(req,res){
   res.send(JSON.parse(req.b2cresult));
 })
+app.get('/simulateb2b',generatetoken,b2bapi,function(req,res){
+    res.send(JSON.parse(req.b2bresult));
+  })
+  
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
