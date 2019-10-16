@@ -1,7 +1,7 @@
 'user strict';
 var request = require('request');
 var b2capi = function(req,res,next){
-    let url = "POST https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest";
+    let url = "https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest";
     let auth = "Bearer "+req.access_token;
     request(
         {
