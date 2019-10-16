@@ -2,9 +2,10 @@
 var request = require('request');
 var securityCredential = require('../helpers/securitycredential');
 
-var b2capi = function(req,res,next){
-    let url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
+var accountBalanceApi = function(req,res,next){
+    let url = "https://sandbox.safaricom.co.ke/mpesa/accountbalance/v1/query";
     let auth = "Bearer "+req.access_token;
+    
     request(
         {
             url : url,
@@ -13,16 +14,14 @@ var b2capi = function(req,res,next){
               Authorization : auth
             },
             json:{
-                "InitiatorName": "Samuel",
+                "Initiator":"Emilio",
                 "SecurityCredential": securityCredential,
-                "CommandID": "SalaryPayment",
-                "Amount": "1",
-                "PartyA": "600383",
-                "PartyB": "254720202978",
-                "Remarks": "We have fully settled",
+                "CommandID":"AccountBalance",
+                "PartyA":" ",
+                "IdentifierType":"4",
+                "Remarks":" ",
                 "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
                 "ResultURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
-                "Occasion": " "
             }
         },
         function(error,response,body){
@@ -30,9 +29,9 @@ var b2capi = function(req,res,next){
                 console.log(error);
             }
             else{
-              req.b2cresult = res.status(200).json(body); 
+              req.accountBalanceResult = res.status(200).json(body); 
             }
         }
     )
 }
-module.exports = b2capi;
+module.exports = accountBalanceApi;
