@@ -7,8 +7,7 @@ var request = require('request');
 var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
 var b2capi = require('./app/controllers/b2ctransactions.js');
-var b2bapi = require('./app/controllers/b2btransactions.js');
-
+var lipaNaMpesaApi = require('./app/controllers/lipanampesatransaction.js');
 
 app.get('/', function(req,res){
     res.send("Hello Mpesa");
@@ -22,8 +21,11 @@ app.get('/registerc2b',generatetoken,registerc2burl, function(req,res){
 app.get('/simulatec2b',generatetoken, c2bapi, function(req,res){
  res.send(JSON.parse(req.c2boutput));
 })
-app.get('/simulateb2c',generatetoken,b2capi,function(req,res){
+app.get('/simulateb2c',generatetoken, b2capi, function(req,res){
   res.send(JSON.parse(req.b2cresult));
+})
+app.get('/lipa-na-mpesa-payment',generatetoken, lipaNaMpesaApi, function(req,res){
+  res.send(JSON.parse(req.lipaNaMpesaApiResult));
 })
 app.get('/simulateb2b',generatetoken,b2bapi,function(req,res){
     res.send(JSON.parse(req.b2bresult));

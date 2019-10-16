@@ -1,6 +1,7 @@
 'user strict';
 var request = require('request');
 var b2bapi = function(req,res,next){
+<<<<<<< HEAD
     let url = "https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest";
     let auth = "Bearer "+req.access_token;
 
@@ -40,3 +41,7 @@ var b2bapi = function(req,res,next){
     
 }
 module.exports = b2bapi;
+=======
+    
+}
+>>>>>>> 2359ccaa942e8a9bba8561b9396b784e1bbf2a9c
