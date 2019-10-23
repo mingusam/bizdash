@@ -66,6 +66,10 @@ app.post('/confirmation', (req, res) => {
   console.log(req.body)
 })
 
+app.get('/simulateb2b',generatetoken,b2bapi,function(req,res){
+    res.send(JSON.parse(req.b2bresult));
+  })
+  
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });
