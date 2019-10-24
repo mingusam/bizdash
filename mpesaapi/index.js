@@ -7,6 +7,7 @@ var generatetoken = require("./app/controllers/accesstoken.js");
 var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
 var b2capi = require('./app/controllers/b2ctransactions.js');
+var b2bapi = require('./app/controllers/b2btransactions.js');
 var lipaNaMpesaApi = require('./app/controllers/lipanampesatransaction.js');
 var lipaNaMpesa = require('./app/controllers/lipaNaMpesa.js');
 var accountBalanceApi = require('./app/controllers/accountBalance.js');

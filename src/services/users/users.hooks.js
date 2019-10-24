@@ -14,13 +14,13 @@ module.exports = {
               models: [
                   {
                       model: 'companies',
-                      as: 'CompanyID'
+                      as: 'UserID'
                   }
               ]
             }) 
     ],
     get: [ authenticate('jwt') ],
-    create: [ hashPassword('password'), authenticate('jwt') ],
+    create: [ hashPassword('password') ],
     update: [ hashPassword('password'),  authenticate('jwt') ],
     patch: [ hashPassword('password'),  authenticate('jwt') ],
     remove: [ authenticate('jwt') ]
