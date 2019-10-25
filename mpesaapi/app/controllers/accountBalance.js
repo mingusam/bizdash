@@ -3,6 +3,9 @@ var request = require('request');
 var securityCredential = require('../helpers/securitycredential');
 
 var accountBalanceApi = function(req,res,next){
+    var initiator = req.body.initiator;
+    var partya = req.body.partya;
+
     let url = "https://sandbox.safaricom.co.ke/mpesa/accountbalance/v1/query";
     let auth = "Bearer "+req.access_token;
     
@@ -14,10 +17,10 @@ var accountBalanceApi = function(req,res,next){
               Authorization : auth
             },
             json:{
-                "Initiator":"Emilio",
+                "Initiator":initiator,
                 "SecurityCredential": securityCredential,
                 "CommandID":"AccountBalance",
-                "PartyA":"174379",
+                "PartyA":partya,
                 "IdentifierType":"4",
                 "Remarks":"Account balance",
                 "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",

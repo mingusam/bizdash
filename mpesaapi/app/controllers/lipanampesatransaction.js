@@ -9,17 +9,15 @@ var timestamp = function getTimeStamp() {
 }
 
 var lipaNaMpesaApi = function(req,res,next){
-    var shortCode = req.params.shortCode;
+    var shortcode = req.params.shortcode;
     var amount = req.params.amount;
-    var mobileNumber = req.params.mobileNumber;
-    var accountReference = req.params.accountReference;
-    var transactionDescription = req.params.transactionDescription;
-
-    console.log(shortCode);
+    var phone = req.params.phone;
+    var accountref = req.params.accountref;
+    var transactiondesc = req.params.transactiondesc;
 
     let url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     let auth = "Bearer "+req.access_token;
-    let password = new Buffer(shortCode + "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" + timestamp()).toString("base64");
+    let password = new Buffer(shortcode + "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" + timestamp()).toString("base64");
     request(
         {
             url : url,
@@ -28,18 +26,18 @@ var lipaNaMpesaApi = function(req,res,next){
               Authorization : auth  
             },
             json:{
-                "BusinessShortCode": shortCode,
+                "BusinessShortCode": shortcode,
                 "Password": password,
                 // "Timestamp": "20191016134250",
                 "Timestamp": timestamp(),
                 "TransactionType": "CustomerPayBillOnline",
                 "Amount": amount,
-                "PartyA": mobileNumber,
-                "PartyB": shortCode,
-                "PhoneNumber": mobileNumber,
+                "PartyA": phone,
+                "PartyB": shortcode,
+                "PhoneNumber": phone,
                 "CallBackURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
-                "AccountReference": accountReference,
-                "TransactionDesc": transactionDescription
+                "AccountReference": accountref,
+                "TransactionDesc": transactiondesc
             }
         },
         function(error,response,body){
