@@ -10,13 +10,11 @@ var timestamp = function getTimeStamp() {
 }
 
 var lipaNaMpesaApi = function(req,res,next){
-    var shortCode = req.params.shortCode;
+    var shortcode = req.params.shortcode;
     var amount = req.params.amount;
-    var mobileNumber = req.params.mobileNumber;
-    var accountReference = req.params.accountReference;
-    var transactionDescription = req.params.transactionDescription;
-
-    console.log(shortCode);
+    var phone = req.params.phone;
+    var accountref = req.params.accountref;
+    var transactiondesc = req.params.transactiondesc;
 
     let url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     let auth = "Bearer "+req.access_token;
@@ -29,7 +27,7 @@ var lipaNaMpesaApi = function(req,res,next){
               Authorization : auth  
             },
             json:{
-                "BusinessShortCode": shortCode,
+                "BusinessShortCode": shortcode,
                 "Password": password,
                 "Timestamp": timestamp(),
                 "TransactionType": "CustomerPayBillOnline",

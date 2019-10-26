@@ -8,7 +8,7 @@ var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
 var b2capi = require('./app/controllers/b2ctransactions.js');
 var b2bapi = require('./app/controllers/b2btransactions.js');
-var lipaNaMpesaApi = require('./app/controllers/lipanampesatransaction.js');
+// var lipaNaMpesaApi = require('./app/controllers/lipanampesatransaction.js');
 var lipaNaMpesa = require('./app/controllers/lipaNaMpesa.js');
 var accountBalanceApi = require('./app/controllers/accountBalance.js');
 
@@ -20,15 +20,15 @@ app.get('/accesstoken', generatetoken,function(req,res){
     res.status(200).json(req.access_token);
 });
 
-app.get('/registerc2b',generatetoken,registerc2burl, function(req,res){
+app.post('/registerc2b',generatetoken,registerc2burl, function(req,res){
  res.send(JSON.parse(req.result));
 })
 
-app.get('/simulatec2b',generatetoken, c2bapi, function(req,res){
+app.post('/simulatec2b',generatetoken, c2bapi, function(req,res){
  res.send(JSON.parse(req.c2boutput));
 })
 
-app.get('/simulateb2c',generatetoken, b2capi, function(req,res){
+app.post('/simulateb2c',generatetoken, b2capi, function(req,res){
   res.send(JSON.parse(req.b2cresult));
 })
 
@@ -49,7 +49,7 @@ app.post('/lipa-na-mpesa',generatetoken, function(req,res){
   });
 })
 
-app.get('/account-balance',generatetoken, accountBalanceApi, function(req,res){
+app.post('/account-balance',generatetoken, accountBalanceApi, function(req,res){
   res.send(JSON.parse(req.accountBalanceResult));
 })
 
@@ -63,7 +63,7 @@ app.post('/confirmation', (req, res) => {
   console.log(req.body)
 })
 
-app.get('/simulateb2b',generatetoken,b2bapi,function(req,res){
+app.post('/simulateb2b',generatetoken,b2bapi,function(req,res){
     res.send(JSON.parse(req.b2bresult));
   })
   

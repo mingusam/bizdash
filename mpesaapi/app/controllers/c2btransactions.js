@@ -1,6 +1,9 @@
 'user strict';
 var request = require('request');
 var c2bapi = function(req, res, next){
+    var shortcode = req.body.shortcode;
+    var amount = req.body.amount;
+    var phone = req.body.phone;
     let url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
     let auth = "Bearer "+req.access_token;
     request(
@@ -11,10 +14,10 @@ var c2bapi = function(req, res, next){
                 Authorization: auth
             },
             json: {
-                "ShortCode":"600383",
+                "ShortCode":shortcode,
                 "CommandID":"CustomerPayBillOnline",
-                "Amount":"100",
-                "Msisdn":"0722632126",
+                "Amount":amount,
+                "Msisdn":phone,
                 "BillRefNumber":"TestAPI"
             }
         },

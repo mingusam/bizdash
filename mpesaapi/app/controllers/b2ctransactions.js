@@ -3,6 +3,10 @@ var request = require('request');
 var credentials = require('../helpers/credentials');
 
 var b2capi = function(req,res,next){
+    var initiator = req.body.initiator;
+    var amount = req.body.amount;
+    var shortcode = req.body.shortcode;
+    var phone = req.body.phone;
     let url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
     let auth = "Bearer "+req.access_token;
     request(
