@@ -1,6 +1,6 @@
 'user strict';
 var request = require('request');
-var securityCredential = require('../helpers/securitycredential');
+var credentials = require('../helpers/credentials');
 
 var b2capi = function(req,res,next){
     let url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
@@ -14,14 +14,14 @@ var b2capi = function(req,res,next){
             },
             json:{
                 "InitiatorName": "Samuel",
-                "SecurityCredential": securityCredential,
+                "SecurityCredential": credentials.securityCredential,
                 "CommandID": "SalaryPayment",
                 "Amount": "1",
                 "PartyA": "600383",
                 "PartyB": "254720202978",
                 "Remarks": "We have fully settled",
-                "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
-                "ResultURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
+                "QueueTimeOutURL": credentials.callBackUrl,
+                "ResultURL": credentials.callBackUrl,
                 "Occasion": " "
             }
         },

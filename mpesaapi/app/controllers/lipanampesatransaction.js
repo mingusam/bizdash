@@ -1,5 +1,6 @@
 'user strict';
 var request = require('request');
+var credentials = require('../helpers/credentials');
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +20,7 @@ var lipaNaMpesaApi = function(req,res,next){
 
     let url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     let auth = "Bearer "+req.access_token;
-    let password = new Buffer(shortCode + "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" + timestamp()).toString("base64");
+    let password = new Buffer(shortCode + credentials.passkey + timestamp()).toString("base64");
     request(
         {
             url : url,
@@ -30,14 +31,13 @@ var lipaNaMpesaApi = function(req,res,next){
             json:{
                 "BusinessShortCode": shortCode,
                 "Password": password,
-                // "Timestamp": "20191016134250",
                 "Timestamp": timestamp(),
                 "TransactionType": "CustomerPayBillOnline",
                 "Amount": amount,
                 "PartyA": mobileNumber,
                 "PartyB": shortCode,
                 "PhoneNumber": mobileNumber,
-                "CallBackURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
+                "CallBackURL": credentials.callBackUrl,
                 "AccountReference": accountReference,
                 "TransactionDesc": transactionDescription
             }
@@ -47,6 +47,7 @@ var lipaNaMpesaApi = function(req,res,next){
                 console.log(error);
             }
             else{
+                
                 req.lipaNaMpesaResult = res.status(200).json(body); 
             }
         }

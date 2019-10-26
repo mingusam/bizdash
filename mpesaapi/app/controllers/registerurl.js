@@ -1,5 +1,7 @@
 'user strict';
 var request = require('request');
+var credentials = require('../helpers/credentials');
+
 var registerc2burl = function(req,res,next){
     let url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
     let auth = "Bearer "+req.access_token;
@@ -14,8 +16,8 @@ var registerc2burl = function(req,res,next){
             json : {
                 "ShortCode":"600383",
                 "ResponseType":"complete",
-                "ConfirmationURL": "https://www.emiliomaingi.rf.gd/payments/confirmationURL.php",
-                "ValidationURL": "https://www.emiliomaingi.rf.gd/payments/validationURL.php"
+                "ConfirmationURL": credentials.confirmationUrl,
+                "ValidationURL": credentials.validationUrl
             }
         },
         function (error,response,body){

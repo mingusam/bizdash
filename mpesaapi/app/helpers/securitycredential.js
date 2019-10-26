@@ -1,3 +1,0 @@
-var securityCredential = "HNEx+sQuIpa11LEDsS8VHmam3BZZnpOn7LgIe+kn6jQdo+RgwbSbysZR556JuLz3bDFHDt4tN8WA55Cj7hYOfYwDPFJiGjV5oLi0nOIV3AAXZkNCxy25R1pxm+SvOzkY+/In1+XYCrKbpxcF0cLIMyAKw/BcDzYe+wSia9ILQnXO2QwfOu2x3sxXv7ptSk7XevBIRJziqiRzkedq3qFlYOyDDa5AxJMxIY5nQeWNYo0AJ+Iataw6RXHnMBnzO8cC3wlR2hNU1LgLz6NugpT6GM2olWMpy0oNc1+/rcY0osU3sh3MZ8TNoBK845ZhtIEje7H0lcfucntDWwELq8JcPg==";
-
-module.exports = securityCredential;

@@ -1,6 +1,6 @@
 'user strict';
 var request = require('request');
-var securityCredential = require('../helpers/securitycredential');
+var credentials = require('../helpers/credentials');
 
 var accountBalanceApi = function(req,res,next){
     let url = "https://sandbox.safaricom.co.ke/mpesa/accountbalance/v1/query";
@@ -15,7 +15,7 @@ var accountBalanceApi = function(req,res,next){
             },
             json:{
                 "Initiator":"Emilio",
-                "SecurityCredential": securityCredential,
+                "SecurityCredential": credentials.securityCredential,
                 "CommandID":"AccountBalance",
                 "PartyA":"174379",
                 "IdentifierType":"4",

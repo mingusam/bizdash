@@ -7,6 +7,7 @@ var generatetoken = require("./app/controllers/accesstoken.js");
 var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
 var b2capi = require('./app/controllers/b2ctransactions.js');
+var b2bapi = require('./app/controllers/b2btransactions.js');
 var lipaNaMpesaApi = require('./app/controllers/lipanampesatransaction.js');
 var lipaNaMpesa = require('./app/controllers/lipaNaMpesa.js');
 var accountBalanceApi = require('./app/controllers/accountBalance.js');
@@ -31,9 +32,9 @@ app.get('/simulateb2c',generatetoken, b2capi, function(req,res){
   res.send(JSON.parse(req.b2cresult));
 })
 
-app.post('/lipa-na-mpesa-payment',generatetoken, lipaNaMpesaApi, function(req,res){
-  res.send(JSON.parse(req.lipaNaMpesaApiResult));
-})
+// app.post('/lipa-na-mpesa-payment',generatetoken, lipaNaMpesaApi, function(req,res){
+//   res.send(JSON.parse(req.lipaNaMpesaApiResult));
+// })
 
 app.post('/lipa-na-mpesa',generatetoken, function(req,res){
   var accessToken =  req.access_token;
@@ -43,13 +44,9 @@ app.post('/lipa-na-mpesa',generatetoken, function(req,res){
   var accountReference = req.body.accountReference;
   var transactionDescription = req.body.transactionDescription;
 
-  
-
-  // var lipa = lipaNaMpesa(accessToken, shortCode, amount, mobileNumber,accountReference, transactionDescription)
-  console.log('Lipa: '+ lipaNaMpesa(accessToken, shortCode, amount, mobileNumber,accountReference, transactionDescription));
-  res.send(lipaNaMpesa(accessToken, shortCode, amount, mobileNumber,accountReference, transactionDescription));
-  // res.send(JSON.parse(req.lipa));
-  // next()
+  lipaNaMpesa(accessToken, shortCode, amount, mobileNumber,accountReference, transactionDescription, function(returnVal){
+    res.send(JSON.parse(returnVal))
+  });
 })
 
 app.get('/account-balance',generatetoken, accountBalanceApi, function(req,res){

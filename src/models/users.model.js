@@ -7,7 +7,6 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const users = sequelizeClient.define('users', {
-
     firstname: {
       type: DataTypes.STRING(15),
       allowNull:false,
@@ -18,8 +17,7 @@ module.exports = function (app) {
     },
     companyid: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      primaryKey:true
+      allowNull:true
     },
     email: {
       type: DataTypes.STRING(30),
@@ -30,8 +28,10 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false
     },
-  
-  
+    roleid: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     hooks: {
       beforeCount(options) {
@@ -44,7 +44,9 @@ module.exports = function (app) {
   users.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    users.hasMany(models.companies, {as:"CompanyID", foreignKey:"companyid" });
+    users.hasMany(models.companies, {as:"UserID", foreignKey:"userid" });
+    //users.belongsTo(models.companies, {as:"CompanyID", foreignKey:"companyid"})
+    users.belongsTo(models.roles, {as:"RoleID", foreignKey:"roleid" });
   };
 
   return users;
