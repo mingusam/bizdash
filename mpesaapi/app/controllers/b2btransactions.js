@@ -1,12 +1,9 @@
 'user strict';
 var request = require('request');
-var b2bapi = function(req,res,next){
-    var initiator = req.body.initiator;
-    var amount = req.body.amount;
-    var partya = req.body.partya;
-    var partyb = req.body.partyb;
+var credentials = require('../helpers/credentials');
+var b2bapi = function(accesstoken,initiator,amount,partya,partyb,callback){
     let url = "https://sandbox.safaricom.co.ke/mpesa/b2b/v1/paymentrequest";
-    let auth = "Bearer "+req.access_token;
+    let auth = "Bearer "+accesstoken;
 //600383
 //174174
     request(
@@ -27,8 +24,8 @@ var b2bapi = function(req,res,next){
           "PartyB": partyb,
           "AccountReference": partya,
           "Remarks": "Money paid fully",
-          "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
-          "ResultURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php"
+          "QueueTimeOutURL": credentials.callBackUrl,
+          "ResultURL": credentials.callBackUrl
         }
       },
         function (error, response, body) {
@@ -37,7 +34,9 @@ var b2bapi = function(req,res,next){
               console.log(error);
           }
           else{
-              req.b2bresult = res.status(200).json(body);
+              //req.b2bresult = res.status(200).json(body);
+              returnB2B = JSON.stringify(body);
+              callback(returnB2B);
           }
         }
       )

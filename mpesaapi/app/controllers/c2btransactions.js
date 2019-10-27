@@ -1,11 +1,9 @@
 'user strict';
 var request = require('request');
-var c2bapi = function(req, res, next){
-    var shortcode = req.body.shortcode;
-    var amount = req.body.amount;
-    var phone = req.body.phone;
+var db = require('../models/db.js');
+var c2bapi = function(accesstoken,shortcode,amount,phone,callback){
     let url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate";
-    let auth = "Bearer "+req.access_token;
+    let auth = "Bearer "+ accesstoken;
     request(
         {
             url: url,
@@ -26,8 +24,9 @@ var c2bapi = function(req, res, next){
                console.log(error);
            }
            else{
-              req.c2boutput = res.status(200).json(body);
-              next();
+              returnC2B = JSON.stringify(body);
+              console.log(returnC2B);
+              callback(returnC2B);
            }
         }
     )

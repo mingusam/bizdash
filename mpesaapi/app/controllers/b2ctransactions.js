@@ -2,13 +2,10 @@
 var request = require('request');
 var credentials = require('../helpers/credentials');
 
-var b2capi = function(req,res,next){
-    var initiator = req.body.initiator;
-    var amount = req.body.amount;
-    var shortcode = req.body.shortcode;
-    var phone = req.body.phone;
+var b2capi = function(accesstoken,initiator,amount,shortcode,phone,callback){
     let url = "https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest";
-    let auth = "Bearer "+req.access_token;
+    let auth = "Bearer "+accesstoken;
+    //600383
     request(
         {
             url : url,
@@ -17,12 +14,12 @@ var b2capi = function(req,res,next){
               Authorization : auth
             },
             json:{
-                "InitiatorName": "Samuel",
+                "InitiatorName": initiator,
                 "SecurityCredential": credentials.securityCredential,
                 "CommandID": "SalaryPayment",
-                "Amount": "1",
-                "PartyA": "600383",
-                "PartyB": "254720202978",
+                "Amount": amount,
+                "PartyA": shortcode,
+                "PartyB": phone,
                 "Remarks": "We have fully settled",
                 "QueueTimeOutURL": credentials.callBackUrl,
                 "ResultURL": credentials.callBackUrl,
@@ -34,7 +31,9 @@ var b2capi = function(req,res,next){
                 console.log(error);
             }
             else{
-              req.b2cresult = res.status(200).json(body); 
+              returnB2C = JSON.stringify(body);
+              callback(returnB2C);
+              //req.b2cresult = res.status(200).json(body); 
             }
         }
     )
