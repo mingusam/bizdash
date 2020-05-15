@@ -3,6 +3,8 @@ var app = express();
 app.use(express.json())
 var db = require("./app/models/db.js");
 
+const request = require('request');
+
 var generatetoken = require("./app/controllers/accesstoken.js");
 var registerc2burl = require('./app/controllers/registerurl.js');
 var c2bapi = require('./app/controllers/c2btransactions.js');
@@ -18,6 +20,15 @@ app.get('/', function(req,res){
 
 app.get('/accesstoken', generatetoken,function(req,res){
     res.status(200).json(req.access_token);
+});
+app.post('/mpesacallback', function(req,res){
+   console.log("MPESA CALLBACK");
+   var message = {
+    "ResponseCode": "00000000",
+    "ResponseDesc": "success"
+   };
+   console.log(req.body)
+   res.send(JSON.stringify(message));
 });
 
 app.post('/registerc2b',generatetoken,registerc2burl, function(req,res){
@@ -85,7 +96,7 @@ app.post('/lipa-na-mpesa',generatetoken, function(req,res){
   var accountReference = req.body.accountReference;
   var transactionDescription = req.body.transactionDescription;
   var companyid = req.body.companyid;
-  var transactiontype = req.body.transactiontype;
+  var transactiontype = "lipanampesa";
   var initiator = req.body.initiator;
 
   lipaNaMpesa(accessToken, shortCode, amount, mobileNumber,accountReference, transactionDescription, function(returnVal){
@@ -105,7 +116,7 @@ app.post('/lipa-na-mpesa',generatetoken, function(req,res){
   });
 })
 
-app.post('/account-balance',generatetoken, accountBalanceApi, function(req,res){
+app.get('/account-balance',generatetoken, accountBalanceApi, function(req,res){
   res.send(JSON.parse(req.accountBalanceResult));
 })
 

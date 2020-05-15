@@ -20,7 +20,7 @@ var accountBalanceApi = function(req,res,next){
                 "Initiator":"Emilio",
                 "SecurityCredential": credentials.securityCredential,
                 "CommandID":"AccountBalance",
-                "PartyA":partya,
+                "PartyA":600383,
                 "IdentifierType":"4",
                 "Remarks":"Account balance",
                 "QueueTimeOutURL": "https://www.emiliomaingi.rf.gd/payments/callbackurl.php",
